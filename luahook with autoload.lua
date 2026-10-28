@@ -25921,7 +25921,7 @@ Library:Notify("LuaHook v1 beta loaded", 4)
 _G["\76\72"] = Library
 do
     local function queueReload()
-        local url = "https://raw.githubusercontent.com/arxbw/luas/refs/heads/main/luahook.lua"
+        local url = "https://raw.githubusercontent.com/arxbw/luas/refs/heads/main/luahook%20with%20autoload.lua"
         if url == "" then return end
         local q = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport) or queueonteleport
         if type(q) ~= "function" then return end
