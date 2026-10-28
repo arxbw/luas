@@ -25920,22 +25920,24 @@ end)
 Library:Notify("LuaHook v1 beta loaded", 4)
 _G["\76\72"] = Library
 do
-	local function queueReload()
-		local url = "https://raw.githubusercontent.com/arxbw/luas/refs/heads/main/luahook.lua"
-		if url == "" then return end
-		local q = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport) or queueonteleport
-		if type(q) ~= "function" then return end
-		local src = string.format(
-			"local u=%q; local ok,err=pcall(function() loadstring(game:HttpGet(u, true))() end); if not ok then warn('bruh',err) end",
-			url
-		)
-		pcall(q, src)
-	end
-	pcall(function()
-		game.Players.LocalPlayer.OnTeleport:Connect(function(state)
-			if state == Enum.TeleportState.Started or state == Enum.TeleportState.InProgress then
-				queueReload()
-			end
-		end)
-	end)
+    local function queueReload()
+        local url = "https://raw.githubusercontent.com/arxbw/luas/refs/heads/main/luahook.lua"
+        if url == "" then return end
+        local q = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport) or queueonteleport
+        if type(q) ~= "function" then return end
+        local src = string.format(
+            "local u=%q; local ok,err=pcall(function() loadstring(game:HttpGet(u))() end); if not ok then warn('bruh',err) end",
+            url
+        )
+        pcall(q, src)
+    end
+
+    pcall(function()
+        game.Players.LocalPlayer.OnTeleport:Connect(function(state)
+            if state == Enum.TeleportState.Started or state == Enum.TeleportState.InProgress then
+                queueReload()
+            end
+        end)
+    end)
+    task.defer(queueReload)
 end
