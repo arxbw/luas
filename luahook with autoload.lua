@@ -1,3 +1,4 @@
+repeat task.wait() until game:IsLoaded()
 if _G["\76\72"] then
 	pcall(function()
 		_G["\76\72"]:Unload()
